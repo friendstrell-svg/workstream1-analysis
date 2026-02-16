@@ -1,0 +1,13 @@
+================================================================================
+WORKSTREAM 1: DIMENSIONALITY REDUCTION ANALYSIS - SUMMARY
+================================================================================
+
+PROJECT GOAL:
+Identify a minimal set of Cutometer parameters that can distinguish
+between young and old facial tissue while reducing computational cost.
+
+================================================================================
+KEY FINDINGS
+================================================================================
+
+1. SUBJECT GROUPS:
