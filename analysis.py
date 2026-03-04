@@ -731,9 +731,7 @@ print("  ✓ Saved: results/analysis_summary.txt")
 # FINAL SUMMARY
 # ============================================================================
 
-print("\n" + "="*80)
-print("ALL EXPORTS COMPLETE!")
-print("="*80)
+
 
 print("\nFiles created in 'results/' folder:")
 print("  1. workstream1_results.xlsx     - All numerical results (6 sheets)")
@@ -743,8 +741,4 @@ print("  4. 03_ttest_results.png         - Statistical significance")
 print("  5. 04_parameter_ranking.png     - Final rankings")
 print("  6. analysis_summary.txt         - Text summary for report")
 
-print("\n" + "="*80)
-print("🎊 WORKSTREAM 1 ANALYSIS COMPLETE! 🎊")
-print("="*80)
 
-print("\nYou now have everything you need for your final project report!")

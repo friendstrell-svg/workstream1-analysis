@@ -1,9 +1,3 @@
-"""
-WORKSTREAM 1: COMPLETE ANALYSIS USING ALL SUBJECTS
-Treats age as continuous variable (18-71 years)
-Uses all 36 subjects instead of just young/old binary classification
-"""
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -54,9 +48,7 @@ for sheet in sheets:
 
 print(f"\n✓ Successfully loaded {len(all_data)} experimental conditions")
 
-# ============================================================================
-# STEP 1: CREATE MASTER DATASET WITH ALL SUBJECTS
-# ============================================================================
+
 print("\n" + "="*80)
 print("STEP 1: CREATE MASTER DATASET - ALL 36 SUBJECTS")
 print("="*80)
@@ -112,9 +104,7 @@ print(f"  Total measurements: {len(master_df)}")
 print(f"  Unique subjects: {master_df['Subjects'].nunique()}")
 print(f"  Parameters per measurement: {len(cutometer_params)}")
 
-# ============================================================================
-# STEP 2: CORRELATION WITH AGE (CONTINUOUS)
-# ============================================================================
+
 print("\n" + "="*80)
 print("STEP 2: CORRELATION ANALYSIS - PARAMETERS vs AGE")
 print("="*80)
@@ -172,9 +162,7 @@ n_sig_spearman = len(age_corr_df[age_corr_df['Significant_Spearman']==True])
 print(f"\n✓ {n_sig_pearson} parameters significantly correlated with age (Pearson, p<0.05)")
 print(f"✓ {n_sig_spearman} parameters significantly correlated with age (Spearman, p<0.05)")
 
-# ============================================================================
-# STEP 3: LINEAR REGRESSION ANALYSIS
-# ============================================================================
+
 print("\n" + "="*80)
 print("STEP 3: LINEAR REGRESSION - PREDICTING AGE FROM PARAMETERS")
 print("="*80)
@@ -229,9 +217,7 @@ from sklearn.model_selection import cross_val_score
 cv_scores = cross_val_score(lr_multi, X_scaled, age, cv=5, scoring='r2')
 print(f"  Cross-validated R² = {cv_scores.mean():.4f} ± {cv_scores.std():.4f}")
 
-# ============================================================================
-# STEP 4: PARAMETER CORRELATION MATRIX (SAME AS BEFORE)
-# ============================================================================
+
 print("\n" + "="*80)
 print("STEP 4: PARAMETER CORRELATION MATRIX")
 print("="*80)
@@ -251,9 +237,7 @@ print(f"\nHighly correlated parameter pairs (|r| > 0.8): {len(high_corr_pairs)}"
 for p1, p2, corr in high_corr_pairs:
     print(f"  {p1} <-> {p2}: r = {corr:.3f}")
 
-# ============================================================================
-# STEP 5: PCA WITH ALL SUBJECTS
-# ============================================================================
+
 print("\n" + "="*80)
 print("STEP 5: PRINCIPAL COMPONENT ANALYSIS")
 print("="*80)
@@ -271,9 +255,7 @@ for i in range(min(8, len(variance_explained))):
 n_components_90 = np.argmax(cumulative_variance >= 0.90) + 1
 print(f"\n✓ {n_components_90} components explain 90% of variance")
 
-# ============================================================================
-# STEP 6: MUTUAL INFORMATION (FOR CONTINUOUS AGE)
-# ============================================================================
+
 print("\n" + "="*80)
 print("STEP 6: MUTUAL INFORMATION WITH AGE")
 print("="*80)
@@ -287,9 +269,7 @@ mi_df = pd.DataFrame({
 print("\nMutual Information Scores:")
 print(mi_df.to_string(index=False))
 
-# ============================================================================
-# STEP 7: RANDOM FOREST REGRESSION
-# ============================================================================
+
 print("\n" + "="*80)
 print("STEP 7: RANDOM FOREST FEATURE IMPORTANCE (REGRESSION)")
 print("="*80)
@@ -315,9 +295,7 @@ rf_df = pd.DataFrame({
 print("\nRandom Forest Feature Importance:")
 print(rf_df.to_string(index=False))
 
-# ============================================================================
-# STEP 8: COMBINED RANKING (CONTINUOUS AGE VERSION)
-# ============================================================================
+
 print("\n" + "="*80)
 print("STEP 8: COMBINED RANKING FOR CONTINUOUS AGE")
 print("="*80)
@@ -395,9 +373,7 @@ for i, (_, row) in enumerate(top_params.iterrows(), 1):
     print(f"  {i}. {row['Parameter']:<6} (score: {row['Combined_Score']:.3f}, "
           f"r = {row['Pearson_r']:>6.3f}, p = {row['Pearson_p']:.4f})")
 
-# ============================================================================
-# STEP 9: SAVE RESULTS
-# ============================================================================
+
 print("\n" + "="*80)
 print("STEP 9: SAVING RESULTS")
 print("="*80)
@@ -442,9 +418,7 @@ with pd.ExcelWriter('results/workstream1_ALL_SUBJECTS.xlsx', engine='openpyxl') 
 
 print("✓ Saved: workstream1_ALL_SUBJECTS.xlsx")
 
-# ============================================================================
-# STEP 10: CREATE VISUALIZATIONS
-# ============================================================================
+
 print("\n" + "="*80)
 print("STEP 10: CREATING VISUALIZATIONS")
 print("="*80)
@@ -536,9 +510,7 @@ plt.savefig('results/parameter_ranking_all_subjects.png', dpi=300)
 print("✓ Saved: parameter_ranking_all_subjects.png")
 plt.close()
 
-print("\n" + "="*80)
-print("ANALYSIS COMPLETE - ALL SUBJECTS")
-print("="*80)
+
 
 print(f"\nKey Findings:")
 print(f"  • Used all {master_df['Subjects'].nunique()} subjects (age range: {master_df['Age'].min():.0f}-{master_df['Age'].max():.0f} years)")
@@ -549,5 +521,3 @@ print(f"  • Recommended minimal set: {optimal_k} parameters")
 print(f"\nTop {optimal_k} Parameters:")
 for i, (_, row) in enumerate(top_params.iterrows(), 1):
     print(f"  {i}. {row['Parameter']} (r = {row['Pearson_r']:.3f}, p = {row['Pearson_p']:.4f})")
-
-print("\n" + "="*80)
